@@ -39,14 +39,8 @@ def example_function_2():
 
 
 def main():
-    # List of function objects
-    lfuncs = [example_function_1, example_function_2]
-
-    # Descriptions of what the functions do
-    lstrs = [
-        "Print a friendly greeting",
-        "Perform a basic math calculation"
-    ]
+    lfuncs = []
+    lstrs = []
 
     while True:
         print("\nYour choices:")
