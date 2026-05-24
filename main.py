@@ -9,8 +9,10 @@ def reverseList(n):
         return n
     if isinstance(n, str):
         return n[::-1]
-    return reduce(operator.add, map(flatten, n), [])[::-1]
-
+    try:
+        return [reverseList(item) for item in n][::-1]
+    except TypeError:
+        return n
 def q2():
     n = eval(input("Enter a list: "))
     print(reverseList(n))
@@ -30,12 +32,13 @@ def flatten(data):
     return reduce(operator.add, map(flatten, data), [])
 
 def isPalindrome(n):
-    return n == n[::-1]
+     c=reverseList(n)
+     return n == c
 def q3():
     n = eval(input("Enter a list: "))
-    flattend = flatten(n)
-    if isPalindrome(flattend):
+    if isPalindrome(n):
         print("It is a palindrome")
+
     else: print("It is not a palindrome")
 #------------------------------q4------------------------------
 #------------------------------q5------------------------------
