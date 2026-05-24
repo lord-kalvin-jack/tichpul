@@ -18,19 +18,6 @@ def q2():
     print(reverseList(n))
 
 #------------------------------q3------------------------------
-def flatten(data):
-    # Base Case 1: If it's a string, break it into a list of individual characters
-    if isinstance(data, str):
-        return list(data)
-
-    # Base Case 2: If it's a single number, wrap it in a list so it can be combined later
-    if not isinstance(data, list):
-        return [data]
-
-    # Recursive Case: If it's a list, map 'deep_flatten' over every item,
-    # then use 'reduce' and 'operator.add' to merge all the resulting lists together.
-    return reduce(operator.add, map(flatten, data), [])
-
 def isPalindrome(n):
      c=reverseList(n)
      return n == c
