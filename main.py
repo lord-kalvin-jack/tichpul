@@ -30,37 +30,26 @@ def q3():
     else: print("It is not a palindrome")
 #------------------------------q4------------------------------
 #------------------------------q5------------------------------
-def example_function_1():
-    print("\n--- Running Function 1: Hello World! ---\n")
-
-
-def example_function_2():
-    print("\n--- Running Function 2: Math is fun! (2 + 2 = 4) ---\n")
-
-
 def main():
-    lfuncs = []
-    lstrs = []
+    lfuncs = [q3]
+
+    lstrs = ["is a list a palindrome"]
 
     while True:
-        print("\nYour choices:")
-        print("0  :  Exit the program")  # Added clear instruction for the exit condition
+        print("your choices: ")
+        for (i, s) in enumerate(lstrs, start=1):
+            print(i, " : ", s)
 
-        for (i, s) in enumerate(lstrs):
-            print(f"{i + 1}  :  {s}")  # Adjusted to show 1-based indexing for the user
+        print("0 : exit")
 
-        try:
-            c = int(input("\nPlease enter your choice: "))
+        c = int(input("please enter your choice: "))
 
-            if c == 0:
-                print("Exiting program. Goodbye!")
-                break
-            elif 1 <= c <= len(lstrs):
-                lfuncs[c - 1]()  # Executes the chosen function
-            else:
-                print("Error: Invalid choice. Please try again.")
-        except ValueError:
-            print("Error: Please enter a valid integer.")
+        if c == 0:
+            break
+        elif c >= 1 and c <= len(lstrs):
+            lfuncs[c - 1]()
+        else:
+            print("error")
 
 
 if __name__ == "__main__":
