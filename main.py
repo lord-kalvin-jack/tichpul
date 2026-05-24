@@ -9,18 +9,21 @@ def reverseList(n):
         return n
     if isinstance(n, str):
         return n[::-1]
-    try:
+    elif isinstance(n, tuple):
+        return tuple(reverseList(list(n)))
+    elif isinstance(n, list):
+        if not n:
+            return []
         return [reverseList(item) for item in n][::-1]
-    except TypeError:
-        return n
+    else:
+        return [n]
 def q2():
     n = eval(input("Enter a list: "))
     print(reverseList(n))
 
 #------------------------------q3------------------------------
 def isPalindrome(n):
-     c=reverseList(n)
-     return n == c
+     return n == reverseList(n)
 def q3():
     n = eval(input("Enter a list: "))
     if isPalindrome(n):
