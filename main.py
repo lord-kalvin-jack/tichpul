@@ -4,6 +4,17 @@ import operator
 #elad zwecher
 #------------------------------q1------------------------------
 #------------------------------q2------------------------------
+def reverseList(n):
+    if isinstance(n, (int , float)):
+        return n
+    if isinstance(n, str):
+        return n[::-1]
+    return reduce(operator.add, map(flatten, n), [])[::-1]
+
+def q2():
+    n = eval(input("Enter a list: "))
+    print(reverseList(n))
+
 #------------------------------q3------------------------------
 def flatten(data):
     # Base Case 1: If it's a string, break it into a list of individual characters
@@ -18,8 +29,6 @@ def flatten(data):
     # then use 'reduce' and 'operator.add' to merge all the resulting lists together.
     return reduce(operator.add, map(flatten, data), [])
 
-
-# Output: [1, 2, '3', '4', 5, 6, '7', 8]
 def isPalindrome(n):
     return n == n[::-1]
 def q3():
@@ -31,9 +40,9 @@ def q3():
 #------------------------------q4------------------------------
 #------------------------------q5------------------------------
 def main():
-    lfuncs = [q3]
+    lfuncs = [q2,q3]
 
-    lstrs = ["is a list a palindrome"]
+    lstrs = ["reverses the list", "is a list a palindrome"]
 
     while True:
         print("your choices: ")
