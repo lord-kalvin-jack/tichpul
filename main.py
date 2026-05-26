@@ -1,8 +1,38 @@
 from functools import reduce
 import operator
-#binyamin godfrey 218804581
-#elad zwecher
+#Binyamin Godfrey 218804581
+#Elad Zwecher 218779668
 #------------------------------q1------------------------------
+def proj_times(file_name):
+    lst = get_proj_info(file_name)
+
+    def processProj(nodes):
+        if not nodes:
+            return []
+        
+        return [[[node[0][0], node[0][2] - node[0][1]], processProj(node[1])] for node in nodes]
+        
+    return processProj(lst)
+
+def proj_time_cost(file_name, cost_per_time_unit):
+    nodes = get_proj_info(file_name)
+    
+    estimatedTime = sum([node[0][1] for node in nodes])
+    actualTime = sum([node[0][2] for node in nodes])
+    timeDelta = actualTime - estimatedTime
+
+    return (
+        (estimatedTime, estimatedTime * cost_per_time_unit),
+        (actualTime, actualTime * cost_per_time_unit),
+        (timeDelta, timeDelta * cost_per_time_unit)
+    )
+
+def get_proj_info(file_name) :
+    flobj = open(file_name, "r")
+    lines = flobj.readlines()
+    flobj.close()
+    return [line[:-1].split(",") for line in lines]
+
 #------------------------------q2------------------------------
 def reverseList(n):
     if isinstance(n, (int , float)):
@@ -31,7 +61,39 @@ def q3():
 
     else: print("It is not a palindrome")
 #------------------------------q4------------------------------
+def primes(n):
+    compositeNumbers = {j for i in range(2, int(n**0.5) + 1) for j in range(i * 2, n + 1, i)}
+
+    return [i for i in range(2,n + 1) if i not in compositeNumbers]
+
+def twinp(n):
+    primeList = primes(n)
+    return {prime : prime + 2 for prime in primeList if prime + 2 in primeList}
 #------------------------------q5------------------------------
+def add3dicts(d1,d2,d3):
+    dicts = (d1, d2, d3)
+    all_keys = set().union(*(d.keys() for d in dicts))
+    def merge(key):
+        values = tuple(d[key] for d in dicts if key in d)
+        unique_values = tuple(dict.fromkeys(values))
+        return unique_values[0] if len(unique_values) == 1 else unique_values
+    return {k: merge(k) for k in all_keys}
+
+def q5():
+    d1 = eval(input("Enter a dictionary: "))
+    d2 = eval(input("Enter a dictionary: "))
+    d3 = eval(input("Enter a dictionary: "))
+
+    #input validation
+    if not (isinstance(d1, dict) and isinstance(d2, dict) and isinstance(d3, dict)):
+        print("ERROR: Input is incorrect!")
+        return
+    
+    result = add3dicts(d1, d2, d3)
+    print("Merged dictionary:")
+    print(result)
+
+
 def main():
     lfuncs = [q2,q3]
 
