@@ -3,6 +3,16 @@ import operator
 #Binyamin Godfrey 218804581
 #Elad Zwecher 218779668
 #------------------------------q1------------------------------
+def q1():
+    file_name = input("Enter project file name: ")
+    #input validation is made in our get_proj_info
+    print("Project Times Delta:")
+    print(proj_times(file_name))
+    
+    cost_per_time = float(input("Enter cost per time unit: "))
+    print("\nProject Time and Cost (Estimated, Actual, Delta):")
+    print(proj_time_cost(file_name, cost_per_time))
+
 def proj_times(file_name):
     lst = get_proj_info(file_name)
 
@@ -27,12 +37,16 @@ def proj_time_cost(file_name, cost_per_time_unit):
         (timeDelta, timeDelta * cost_per_time_unit)
     )
 
-def get_proj_info(file_name) :
-    flobj = open(file_name, "r")
-    lines = flobj.readlines()
-    flobj.close()
-    return [line[:-1].split(",") for line in lines]
+def get_proj_info(file_name):
+    try:
+        with open(file_name, "r") as flobj:
+            lines = flobj.readlines()
 
+    except:
+        print("An error occurred. File name may not be valid.")
+        return []
+
+    return [line[:-1].split(",") for line in lines]
 #------------------------------q2------------------------------
 def reverseList(n):
     if isinstance(n, (int , float)):
@@ -49,6 +63,11 @@ def reverseList(n):
         return [n]
 def q2():
     n = eval(input("Enter a list: "))
+    
+    if (not isinstance(list)):
+        print("ERROR: Input list is incorrect! ")
+        return
+    
     print(reverseList(n))
 
 #------------------------------q3------------------------------
@@ -56,6 +75,11 @@ def isPalindrome(n):
      return n == reverseList(n)
 def q3():
     n = eval(input("Enter a list: "))
+
+    if (not isinstance(list)):
+        print("ERROR: Input list is incorrect! ")
+        return
+    
     if isPalindrome(n):
         print("It is a palindrome")
 
@@ -69,6 +93,17 @@ def primes(n):
 def twinp(n):
     primeList = primes(n)
     return {prime : prime + 2 for prime in primeList if prime + 2 in primeList}
+
+def q4():
+    n = eval(input("Enter a Natural number n: "))
+
+    if (not isinstance(n, int) or n <= 0):
+        print("ERROR: Input number is incorrect! ")
+        return
+    prime_dict = twinp(n)
+
+    [print(f"{key} {value}") for key, value in twinp]
+      
 #------------------------------q5------------------------------
 def add3dicts(d1,d2,d3):
     dicts = (d1, d2, d3)
@@ -95,26 +130,37 @@ def q5():
 
 
 def main():
-    lfuncs = [q2,q3]
+    # Array of function references
+    lfuncs = [q1, q2, q3, q4, q5]
 
-    lstrs = ["reverses the list", "is a list a palindrome"]
+    # Array of descriptions corresponding to the functions
+    lstrs = [
+        "Process project times and costs (q1)",
+        "Reverse a nested list (q2)",
+        "Check if a list is a palindrome (q3)",
+        "Find twin primes up to n (q4)",
+        "Merge three dictionaries (q5)"
+    ]
 
     while True:
-        print("your choices: ")
+        print("\n--- Main Menu ---")
         for (i, s) in enumerate(lstrs, start=1):
-            print(i, " : ", s)
-
+            print(f"{i} : {s}")
         print("0 : exit")
 
-        c = int(input("please enter your choice: "))
+        try:
+            c = int(input("Please enter your choice: "))
+        except ValueError:
+            print("ERROR: Invalid input. Please enter a number.")
+            continue
 
         if c == 0:
+            print("Exiting...")
             break
-        elif c >= 1 and c <= len(lstrs):
-            lfuncs[c - 1]()
+        elif 1 <= c <= len(lstrs):
+            lfuncs[c - 1]() # Execute the chosen function
         else:
-            print("error")
-
+            print("ERROR: Choice out of range.")
 
 if __name__ == "__main__":
     main()
